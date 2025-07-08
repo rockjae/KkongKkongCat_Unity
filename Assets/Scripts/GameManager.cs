@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public float initialGameSpeed = 5f;
-    public float gameSpeedIncrease = 0.1f;
+    private float initialGameSpeed = 1f;
+    private float gameSpeedIncrease = 0.2f;
     public float gameSpeed { get; private set; }
 
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public Spawner spawner;
+
+    // 인스펙터에서 장애물을 해금할 목표 점수를 설정합니다.
+    // 예: 100점, 300점, 700점 ...
+    [SerializeField] private float[] scoreThresholds;
+    private int unlockedCount; // 현재 해금된 장애물 종류의 수
 
     private float score;
     public float Score => score;
@@ -33,6 +38,9 @@ public class GameManager : MonoBehaviour
         } else {
             Instance = this;
         }
+
+        Application.targetFrameRate = 60;
+        scoreThresholds = new float[] { 10f, 50f, 100f, 150f, 200f ,250f, 300f };
     }
 
     private void OnDestroy()
@@ -59,7 +67,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void NewGame()
-    {
+    {    
+        // 해금 상태 초기화 (기본 1개만 해금된 상태로 시작)
+        unlockedCount = 1;
+        spawner.SetUnlockedCount(unlockedCount);
+
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
 
         foreach (var obstacle in obstacles) {
@@ -102,6 +114,14 @@ public class GameManager : MonoBehaviour
             gameSpeed += gameSpeedIncrease * Time.deltaTime;
             score += gameSpeed * Time.deltaTime;
             scoreText.text = Mathf.FloorToInt(score).ToString("D5");
+
+            // 다음 해금할 장애물이 있고, 현재 점수가 목표 점수를 넘었는지 확인
+            if (unlockedCount < spawner.objects.Length && score >= scoreThresholds[unlockedCount - 1])
+            {
+                // 장애물 종류를 하나 더 해금
+                unlockedCount++;
+                spawner.SetUnlockedCount(unlockedCount);
+            }
         }
     }
 

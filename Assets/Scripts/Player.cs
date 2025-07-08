@@ -49,16 +49,8 @@ public class Player : MonoBehaviour
 
     void playerJumpSound()
     {
-        //audioSource.clip = audioClips[count];
         audioSource.clip = audioClips[Random.Range(0,audioClips.Length)];
         audioSource.Play();
-        /*
-        count++;
-        if(count == audioClips.Length)
-        {
-            count = 0;
-        }
-        */
     }
 
 }

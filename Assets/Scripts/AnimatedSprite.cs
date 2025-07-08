@@ -7,6 +7,9 @@ public class AnimatedSprite : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int frame;
 
+    public float acceleration = 0.1f;
+    private float timeElapsed;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -14,6 +17,7 @@ public class AnimatedSprite : MonoBehaviour
 
     private void OnEnable()
     {
+        timeElapsed = 0f;
         Invoke(nameof(Animate), 0f);
     }
 
@@ -26,15 +30,21 @@ public class AnimatedSprite : MonoBehaviour
     {
         frame++;
 
-        if (frame >= sprites.Length) {
+        if (frame >= sprites.Length)
+        {
             frame = 0;
         }
 
-        if (frame >= 0 && frame < sprites.Length) {
+        if (frame >= 0 && frame < sprites.Length)
+        {
             spriteRenderer.sprite = sprites[frame];
         }
 
-        Invoke(nameof(Animate), 1f / GameManager.Instance.gameSpeed);
+        float currentSpeed = GameManager.Instance.gameSpeed + (timeElapsed * acceleration);
+        Invoke(nameof(Animate), 1f / currentSpeed);
     }
-
+    private void Update()
+    {
+        timeElapsed += Time.deltaTime;
+    }
 }
