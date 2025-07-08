@@ -6,6 +6,7 @@ using System;
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
+    public AnimationSpeedController animationSpeedController;
     public BGMManager bGMManager;
     bool isGame;
 
@@ -91,6 +92,8 @@ public class GameManager : MonoBehaviour
 
         bGMManager.NewAudioPlay();
         isGame = true;
+
+        animationSpeedController.ResetAcceleration();
     }
 
     public void GameOver()

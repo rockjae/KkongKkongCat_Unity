@@ -2503,6 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06312b1955e91f3479138c86bbc3f9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSpeedController: {fileID: 2123860021}
   bGMManager: {fileID: 809601998}
   scoreText: {fileID: 550957954}
   hiscoreText: {fileID: 151625051}
@@ -3126,7 +3127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  acceleration: 0.1
 --- !u!1 &2144448296
 GameObject:
   m_ObjectHideFlags: 0
