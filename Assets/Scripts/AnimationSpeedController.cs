@@ -12,6 +12,7 @@ public class AnimationSpeedController : MonoBehaviour
         if (animator == null)
         {
             animator = GetComponent<Animator>();
+            animator.speed = 0;
         }
     }
 
@@ -22,6 +23,7 @@ public class AnimationSpeedController : MonoBehaviour
 
     public void ResetAcceleration()
     {
+        animator.speed = 0;
         acceleration = 0.1f;
     }
 }
