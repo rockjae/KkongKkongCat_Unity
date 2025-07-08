@@ -21,4 +21,13 @@ public class FootBgmManager : MonoBehaviour
             audioSource.pitch += Time.deltaTime * pitchSpeed;
         }
     }
+
+    public void ResetFootBgmManager()
+    {
+        pitchSpeed = 0.01f;
+        if(audioSource != null)
+        {
+            audioSource.pitch = 1f;
+        }
+    }
 }

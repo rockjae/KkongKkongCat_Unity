@@ -2503,6 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06312b1955e91f3479138c86bbc3f9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footBgmManager: {fileID: 813561151}
   animationSpeedController: {fileID: 2123860021}
   bGMManager: {fileID: 809601998}
   scoreText: {fileID: 550957954}
